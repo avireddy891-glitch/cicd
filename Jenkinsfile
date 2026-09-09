@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+
         stage('Build') {
             steps {
                 echo 'Building Home Automation Project'
@@ -16,14 +17,18 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'Deploying Home Automation Project'
+                bat '''
+                start "HomeAutomationServer" cmd /c "cd /d %WORKSPACE%\\frontend && python -m http.server 8000"
+                '''
+                echo 'Dashboard deployed at http://localhost:8000'
             }
         }
     }
 
     post {
         success {
-            echo 'CI/CD Pipeline Completed Successfully!'
+            echo 'CI/CD completed successfully!'
+            echo 'Open dashboard: http://localhost:8000'
         }
     }
 }
