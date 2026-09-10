@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-
         stage('Build') {
             steps {
                 echo 'Building Home Automation Project'
@@ -15,20 +14,14 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy and Open Dashboard') {
             steps {
-                bat '''
-                start "HomeAutomationServer" cmd /c "cd /d %WORKSPACE%\\frontend && python -m http.server 8000"
+                powershell '''
+                    Start-Process powershell -ArgumentList "-ExecutionPolicy Bypass -File .\\run_project.ps1"
+                    Start-Sleep -Seconds 5
+                    Start-Process "http://localhost:3000"
                 '''
-                echo 'Dashboard deployed at http://localhost:8000'
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'CI/CD completed successfully!'
-            echo 'Open dashboard: http://localhost:8000'
         }
     }
 }
