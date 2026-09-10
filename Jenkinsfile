@@ -16,7 +16,7 @@ pipeline {
 
         stage('Deploy and Open Dashboard') {
             steps {
-                powershell '''
+                 '''
                     Start-Process powershell -ArgumentList "-ExecutionPolicy Bypass -File .\\run_project.ps1"
                     Start-Sleep -Seconds 5
                     Start-Process "http://localhost:3000"
