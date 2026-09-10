@@ -15,12 +15,12 @@ pipeline {
         }
 
         stage('Deploy and Open Dashboard') {
-            steps {
-                 '''
-                    Start-Process powershell -ArgumentList "-ExecutionPolicy Bypass -File .\\run_project.ps1"
-                    Start-Sleep -Seconds 5
-                    Start-Process "http://localhost:3000"
-                '''
+    steps {
+        bat '''
+        start "" powershell -NoProfile -ExecutionPolicy Bypass -File ".\\run_project.ps1"
+        timeout /t 10 /nobreak >nul
+        start "" "http://localhost:3000"
+        '''
             }
         }
     }
