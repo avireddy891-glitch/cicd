@@ -18,7 +18,7 @@ pipeline {
     steps {
         bat '''
         start "" powershell -NoProfile -ExecutionPolicy Bypass -File ".\\run_project.ps1"
-        timeout /t 10 /nobreak >nul
+     powershell -NoProfile -Command "Start-Sleep -Seconds 10"
         start "" "http://localhost:3000"
         '''
             }
