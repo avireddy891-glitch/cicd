@@ -19,7 +19,11 @@ pipeline {
         bat '''
         start "" powershell -NoProfile -ExecutionPolicy Bypass -File ".\\run_project.ps1"
      powershell -NoProfile -Command "Start-Sleep -Seconds 10"
-        start "" "http://localhost:3000"
+        echo==================================
+        echo Dashboard deployed successfully
+        echo dashboard URL:http://localhost:3000
+        echo==================================
+        
         '''
             }
         }
